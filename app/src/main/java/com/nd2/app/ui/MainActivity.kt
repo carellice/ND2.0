@@ -12,7 +12,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import com.nd2.app.core.Channels
 
-enum class Screen { Home, PickContacts, PickApps }
+enum class Screen { Home, PickContacts, PickApps, Settings }
 
 class MainActivity : ComponentActivity() {
 
@@ -31,9 +31,11 @@ class MainActivity : ComponentActivity() {
                         resumeTick = resumeTick,
                         onPickContacts = { screen = Screen.PickContacts },
                         onPickApps = { screen = Screen.PickApps },
+                        onOpenSettings = { screen = Screen.Settings },
                     )
                     Screen.PickContacts -> ContactPickerScreen(onDone = { screen = Screen.Home })
                     Screen.PickApps -> AppPickerScreen(onDone = { screen = Screen.Home })
+                    Screen.Settings -> SettingsScreen(resumeTick = resumeTick, onBack = { screen = Screen.Home })
                 }
             }
         }

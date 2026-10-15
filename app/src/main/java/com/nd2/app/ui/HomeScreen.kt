@@ -84,7 +84,7 @@ import com.nd2.app.data.Store
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreen(resumeTick: Int, onPickContacts: () -> Unit, onPickApps: () -> Unit) {
+fun HomeScreen(resumeTick: Int, onPickContacts: () -> Unit, onPickApps: () -> Unit, onOpenSettings: () -> Unit) {
     val context = LocalContext.current
     val state by Store.state.collectAsStateWithLifecycle()
     var permTick by remember { mutableIntStateOf(0) }
@@ -118,7 +118,7 @@ fun HomeScreen(resumeTick: Int, onPickContacts: () -> Unit, onPickApps: () -> Un
             ),
             verticalArrangement = Arrangement.spacedBy(14.dp),
         ) {
-            item { Header() }
+            item { Header(onOpenSettings) }
 
             item {
                 HeroCard(
@@ -211,17 +211,23 @@ fun HomeScreen(resumeTick: Int, onPickContacts: () -> Unit, onPickApps: () -> Un
 }
 
 @Composable
-private fun Header() {
+private fun Header(onOpenSettings: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(vertical = 4.dp)) {
         AppLogo(44.dp)
         Spacer(Modifier.width(14.dp))
-        Column {
+        Column(Modifier.weight(1f)) {
             Text("ND2.0", style = MaterialTheme.typography.headlineMedium)
             Text(
                 "Non disturbare, ma con intelligenza",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+        }
+        IconButton(
+            onClick = onOpenSettings,
+            modifier = Modifier.clip(CircleShape).background(MaterialTheme.colorScheme.surfaceContainerHigh),
+        ) {
+            Icon(Icons.Filled.Settings, contentDescription = "Impostazioni")
         }
     }
 }
