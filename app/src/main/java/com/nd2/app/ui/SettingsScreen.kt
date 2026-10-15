@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
@@ -61,6 +62,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nd2.app.core.ReleaseInfo
 import com.nd2.app.core.UpdateState
 import com.nd2.app.core.Updater
+import com.nd2.app.service.ToggleTileService
 import java.io.File
 import java.util.Locale
 
@@ -128,12 +130,15 @@ fun SettingsScreen(resumeTick: Int, onBack: () -> Unit) {
 
             item { SectionLabel("Generale") }
             item {
-                GroupedList(3) { i ->
+                GroupedList(4) { i ->
                     when (i) {
-                        0 -> LinkRow(Icons.Filled.Settings, "Impostazioni di sistema dell'app", "Permessi, notifiche, batteria") {
+                        0 -> LinkRow(Icons.Filled.Add, "Pulsante nelle Impostazioni rapide", "Attiva ND2.0 dalla tendina delle notifiche") {
+                            ToggleTileService.requestAdd(context)
+                        }
+                        1 -> LinkRow(Icons.Filled.Settings, "Impostazioni di sistema dell'app", "Permessi, notifiche, batteria") {
                             context.startActivity(Perms.appSettings(context))
                         }
-                        1 -> LinkRow(Icons.Filled.Star, "Progetto su GitHub", "Codice sorgente e tutte le versioni") {
+                        2 -> LinkRow(Icons.Filled.Star, "Progetto su GitHub", "Codice sorgente e tutte le versioni") {
                             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(Updater.REPO_URL)))
                         }
                         else -> LinkRow(Icons.Filled.Info, "Versione", "ND2.0 $version", showArrow = false) {}
