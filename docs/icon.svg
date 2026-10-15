@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="18 18 72 72">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#7B63E6"/><stop offset="0.55" stop-color="#4A33A8"/><stop offset="1" stop-color="#22184F"/></linearGradient>
+<radialGradient id="gl" cx="44" cy="64" r="34" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFE9A6" stop-opacity="0.35"/><stop offset="1" stop-color="#FFE9A6" stop-opacity="0"/></radialGradient>
+<linearGradient id="mn" x1="30" y1="36" x2="72" y2="84" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#FFF3C4"/><stop offset="1" stop-color="#FFC94A"/></linearGradient>
+<clipPath id="sq"><rect x="18" y="18" width="72" height="72" rx="17"/></clipPath>
+</defs>
+<g clip-path="url(#sq)"><rect width="108" height="108" fill="url(#bg)"/><path d="M44,64m-34,0a34,34 0,1 1,68 0a34,34 0,1 1,-68 0" fill="url(#gl)"/><path d="M48.94,32.58 A25.5,25.5 0 1,0 75.84,63.78 A21,21 0 0,1 48.94,32.58 Z" fill="url(#mn)"/><path d="M71,27 Q71,33 77,33 Q71,33 71,39 Q71,33 65,33 Q71,33 71,27 Z" fill="#fff"/><path d="M79.5,43.6 Q79.5,47 82.9,47 Q79.5,47 79.5,50.4 Q79.5,47 76.1,47 Q79.5,47 79.5,43.6 Z" fill="#fff" fill-opacity=".8"/><path d="M64,27m-1.4,0a1.4,1.4 0,1 1,2.8 0a1.4,1.4 0,1 1,-2.8 0" fill="#fff" fill-opacity=".7"/></g>
+</svg>

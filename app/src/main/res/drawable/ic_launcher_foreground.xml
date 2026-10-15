@@ -1,0 +1,27 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- Alone caldo dietro la luna -->
+    <path android:pathData="M44,64m-34,0a34,34 0,1 1,68 0a34,34 0,1 1,-68 0">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="radial" android:centerX="44" android:centerY="64" android:gradientRadius="34">
+                <item android:offset="0" android:color="#59FFE9A6" />
+                <item android:offset="1" android:color="#00FFE9A6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Spicchio di luna: cerchio esterno meno un cerchio spostato in alto a destra -->
+    <path android:pathData="M48.94,32.58 A25.5,25.5 0 1,0 75.84,63.78 A21,21 0 0,1 48.94,32.58 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient android:type="linear"
+                android:startX="30" android:startY="36" android:endX="72" android:endY="84">
+                <item android:offset="0" android:color="#FFFFF3C4" />
+                <item android:offset="1" android:color="#FFFFC94A" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:fillColor="#FFFFFFFF" android:pathData="M71,27 Q71,33 77,33 Q71,33 71,39 Q71,33 65,33 Q71,33 71,27 Z" />
+    <path android:fillColor="#CCFFFFFF" android:pathData="M79.5,43.6 Q79.5,47 82.9,47 Q79.5,47 79.5,50.4 Q79.5,47 76.1,47 Q79.5,47 79.5,43.6 Z" />
+    <path android:fillColor="#B3FFFFFF" android:pathData="M64,27m-1.4,0a1.4,1.4 0,1 1,2.8 0a1.4,1.4 0,1 1,-2.8 0" />
+</vector>
