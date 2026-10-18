@@ -7,3 +7,7 @@ local.properties
 .kotlin/
 ND2.0.apk
 *.apk
+
+# Firma di release (NON committare: tienine una copia di backup)
+release.jks
+keystore.properties

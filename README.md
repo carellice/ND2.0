@@ -33,6 +33,7 @@ Scegli le app che non vuoi mai perdere, per esempio Gmail o Google Calendar. Le 
 - **Altri nomi.** Se una persona compare nelle app con un altro nome (es. username Instagram), aggiungilo e ND2.0 la riconosce lo stesso.
 - **Pulsante rapido.** Attivi e disattivi ND2.0 dalle Impostazioni rapide, senza aprire l'app.
 - **Aggiornamenti integrati.** Nelle Impostazioni l'app controlla se c'è una nuova versione e la scarica e installa da sola.
+- **Backup.** Dalle Impostazioni esporti contatti, altri nomi e app su un file e li reimporti su un nuovo telefono: i contatti vengono ritrovati in rubrica dal numero o dal nome.
 
 ## 📱 Screenshot
 
@@ -77,6 +78,8 @@ Per pubblicare una nuova versione basta fare doppio clic su **`release.command`*
 - compila l'APK;
 - crea la release su GitHub;
 - elimina le release precedenti.
+
+L'APK release è firmato con la chiave in `release.jks`, configurata in `keystore.properties` (entrambi fuori da git). Tienine una copia al sicuro: senza la stessa chiave gli aggiornamenti non si installano sopra la versione esistente.
 
 ## ⚠️ Limiti noti
 

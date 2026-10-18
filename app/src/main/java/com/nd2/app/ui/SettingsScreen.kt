@@ -2,6 +2,9 @@ package com.nd2.app.ui
 
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
@@ -30,6 +33,7 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
@@ -50,6 +54,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -62,7 +67,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nd2.app.core.ReleaseInfo
 import com.nd2.app.core.UpdateState
 import com.nd2.app.core.Updater
+import com.nd2.app.data.Backup
 import com.nd2.app.service.ToggleTileService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 import java.util.Locale
 
@@ -81,6 +90,31 @@ fun SettingsScreen(resumeTick: Int, onBack: () -> Unit) {
         } else {
             pendingInstall = file
             context.startActivity(Updater.unknownSourcesSettings(context))
+        }
+    }
+
+    val scope = rememberCoroutineScope()
+    fun toast(msg: String) = Toast.makeText(context, msg, Toast.LENGTH_LONG).show()
+
+    val exportLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.CreateDocument("application/json"),
+    ) { uri ->
+        uri ?: return@rememberLauncherForActivityResult
+        scope.launch {
+            val result = withContext(Dispatchers.IO) { runCatching { Backup.export(context, uri) } }
+            toast(if (result.isSuccess) "Backup salvato" else "Backup non riuscito: ${result.exceptionOrNull()?.message}")
+        }
+    }
+    val importLauncher = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        uri ?: return@rememberLauncherForActivityResult
+        scope.launch {
+            val result = withContext(Dispatchers.IO) { runCatching { Backup.import(context, uri) } }
+            result.onSuccess { r ->
+                toast(
+                    if (r.contacts == 0 && r.apps == 0) "Backup importato: era già tutto presente"
+                    else "Backup importato: ${r.contacts} contatti e ${r.apps} app aggiunti",
+                )
+            }.onFailure { toast(it.message ?: "Importazione non riuscita") }
         }
     }
 
@@ -126,6 +160,20 @@ fun SettingsScreen(resumeTick: Int, onBack: () -> Unit) {
                     onDownload = { Updater.download(context, it) },
                     onInstall = { install(it) },
                 )
+            }
+
+            item { SectionLabel("Backup") }
+            item {
+                GroupedList(2) { i ->
+                    when (i) {
+                        0 -> LinkRow(Icons.Filled.Share, "Esporta backup", "Salva contatti, altri nomi e app su un file") {
+                            exportLauncher.launch(Backup.fileName())
+                        }
+                        else -> LinkRow(Icons.Filled.Refresh, "Importa backup", "Ripristina da un file, ad esempio su un nuovo telefono") {
+                            importLauncher.launch(arrayOf("application/json", "application/octet-stream", "text/plain"))
+                        }
+                    }
+                }
             }
 
             item { SectionLabel("Generale") }
