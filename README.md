@@ -73,7 +73,7 @@ Scegli le app che non vuoi mai perdere, per esempio Gmail o Google Calendar. Le 
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 ```
 
-Per pubblicare una nuova versione basta fare doppio clic su **`release.command`**. Lo script:
+Per pubblicare una nuova versione basta fare doppio clic su **`release.cmd`** su Windows (avvia `release.ps1`) o su **`release.command`** su macOS. Lo script:
 - incrementa la versione;
 - compila l'APK;
 - crea la release su GitHub;
